@@ -7,9 +7,7 @@
 
 .idea
 out
-Hello_java.iml
-Main.class
-Test.class
+ProjetPLM.iml
 
 # User-specific stuff
 .idea/**/workspace.xml
