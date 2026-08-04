@@ -7,11 +7,13 @@ public class gestionAvions {
 
     public static void main(String[] args) {
         initplanes();
+        displayPlanes();
     }
 
     public static void initplanes() {
         //Avion 1
         Map<String, Object> plane1 = new HashMap<>();
+        plane1.put("id", "1");
         plane1.put("programme", "A380");
         plane1.put("phase actuelle", "construction");
         plane1.put("type", "transport passager");
@@ -36,6 +38,7 @@ public class gestionAvions {
 
         //Avion 2
         Map<String, Object> plane2 = new HashMap<>();
+        plane2.put("id", "2");
         plane2.put("programme", "A220");
         plane2.put("phase actuelle", "en service");
         plane2.put("type", "militaire");
@@ -54,6 +57,7 @@ public class gestionAvions {
 
         //Avion 3
         Map<String, Object> plane3 = new HashMap<>();
+        plane3.put("id", "3");
         plane3.put("programme", "A300");
         plane3.put("phase actuelle", "clôturé");
         plane3.put("type", "avion d'affaires");
@@ -73,11 +77,12 @@ public class gestionAvions {
         pieces3.add(p5);
 
         // On met la liste des pieces dans l'avion 3
-        plane2.put("pieces", pieces3);
+        plane3.put("pieces", pieces3);
         planes.add(plane3);
 
         //Avion 4
         Map<String, Object> plane4 = new HashMap<>();
+        plane4.put("id", "4");
         plane4.put("programme", "A350");
         plane4.put("phase actuelle", "en service");
         plane4.put("type", "transport passager");
@@ -91,16 +96,37 @@ public class gestionAvions {
         pieces4.add(p6);
 
         // On met la liste des pieces dans l'avion 4
-        plane2.put("pieces", pieces4);
+        plane4.put("pieces", pieces4);
         planes.add(plane4);
 
         //Avion 5
         Map<String, Object> plane5 = new HashMap<>();
+        plane5.put("id", "5");
         plane5.put("programme", "A320");
         plane5.put("phase actuelle", "conception");
         plane5.put("type", "transport passager");
         plane5.put("pieces", new ArrayList<Map<String, String>>()); // pas encore de pièces
         planes.add(plane5);
+    }
+    public static void displayPlanes(){
+        for (Map<String, Object> plane : planes){
+            System.out.println ("Avions " +  plane.get("id"));
+            System.out.println("Programme :" + plane.get("programme"));
+            System.out.println("Phase :" + plane.get("phase actuelle"));
+            System.out.println("Type :" + plane.get("type"));
+
+            List<Map<String, String>> pieces = (List<Map<String, String>>) plane.get("pieces");
+            if (pieces.isEmpty()){
+                System.out.println("Aucune pièce enregistrée.");
+            }else{
+                for (Map<String, String> piece : pieces){
+                    System.out.println("Pièce : " + piece.get("name") +
+                                       " | " + piece.get("caracteristic") +
+                                       " | " + piece.get("price"));
+                }
+            }
+            System.out.println();
+        }
     }
 
     public static Integer userChoice() {
@@ -127,7 +153,7 @@ public class gestionAvions {
                 reponse.nextLine();
 
                 switch (selection) {
-                    //case 1: displayplanes();
+                    case 1: displayPlanes();
                         //break;
                         //case 2 : searchplanes();break;
                         //case 3 : addpiece();break;
