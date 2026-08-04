@@ -7,7 +7,7 @@ public class gestionAvions {
 
     public static void main(String[] args) {
         initplanes();
-        displayPlanes();
+        userChoice();
     }
 
     public static void initplanes() {
@@ -108,24 +108,29 @@ public class gestionAvions {
         plane5.put("pieces", new ArrayList<Map<String, String>>()); // pas encore de pièces
         planes.add(plane5);
     }
-    public static void displayPlanes(){
-        for (Map<String, Object> plane : planes){
-            System.out.println ("Avions " +  plane.get("id"));
-            System.out.println("Programme :" + plane.get("programme"));
-            System.out.println("Phase :" + plane.get("phase actuelle"));
-            System.out.println("Type :" + plane.get("type"));
 
-            List<Map<String, String>> pieces = (List<Map<String, String>>) plane.get("pieces");
-            if (pieces.isEmpty()){
-                System.out.println("Aucune pièce enregistrée.");
-            }else{
-                for (Map<String, String> piece : pieces){
-                    System.out.println("Pièce : " + piece.get("name") +
-                                       " | " + piece.get("caracteristic") +
-                                       " | " + piece.get("price"));
-                }
+    public static void displayPlane(Map<String, Object> plane) {
+        System.out.println("Avions " + plane.get("id"));
+        System.out.println("Programme :" + plane.get("programme"));
+        System.out.println("Phase :" + plane.get("phase actuelle"));
+        System.out.println("Type :" + plane.get("type"));
+
+        List<Map<String, String>> pieces = (List<Map<String, String>>) plane.get("pieces");
+        if (pieces.isEmpty()) {
+            System.out.println("Aucune pièce enregistrée.");
+        } else {
+            for (Map<String, String> piece : pieces) {
+                System.out.println("Pièce : " + piece.get("name") +
+                        " | " + piece.get("caracteristic") +
+                        " | " + piece.get("price"));
             }
-            System.out.println();
+        }
+        System.out.println();
+    }
+
+    public static void displayPlanes() {
+        for (Map<String, Object> avion : planes) {
+            displayPlane(avion);
         }
     }
 
@@ -134,7 +139,6 @@ public class gestionAvions {
                 "2 - Rechercher un/des avions grâce au programme",
                 "3 - Ajouter une pièce à l'avion",
                 "4 - Supprimer une pièce de l'avion",
-                "5 - Afficher toutes les pièces de l'avion",
                 "0 - Quitter"};
 
         Scanner reponse = new Scanner(System.in);
@@ -146,19 +150,25 @@ public class gestionAvions {
             for (String option : choice) {
                 System.out.println(option);
             }
-            System.out.print("Votre choix [sélectionner le numéro correspondant] :");
+            System.out.println("Votre choix [sélectionner le numéro correspondant] :");
 
             if (reponse.hasNextInt()) {
                 selection = reponse.nextInt();
                 reponse.nextLine();
 
+
                 switch (selection) {
-                    case 1: displayPlanes();
-                        //break;
-                        //case 2 : searchplanes();break;
-                        //case 3 : addpiece();break;
-                        //case 4 : deletepiece();break;
-                        //case 5 : displaypiece();break;
+                    case 1:
+                        displayPlanes();
+                        break;
+                    case 2:
+                        searchplanes();
+                        break;
+                    case 3:
+                        addpiece();
+                        break;
+                    case 4: deletepiece();
+                        break;
                     case 0:
                         System.out.println("Au revoir !");
                         break;
@@ -172,7 +182,95 @@ public class gestionAvions {
         }
         return selection;
     }
+
+    public static void searchplanes() {
+        System.out.println("Quel programme recherchez vous ?");
+        Scanner reponse = new Scanner(System.in);
+        String search = reponse.nextLine().trim();
+
+        boolean find = false;
+
+        for (Map<String, Object> plane : planes) {
+            if (plane.get("programme").toString().equalsIgnoreCase(search)) {
+                displayPlane(plane);
+                find = true;
+                break;
+            }
+        }
+        if (!find) {
+            System.out.println("Aucun avion trouvé avec le programme \"" + search + "\"");
+        }
+    }
+
+    public static void addpiece() {
+        System.out.println("Saisissez le nom de la pièce :");
+        Scanner reponse = new Scanner(System.in);
+        String searchname = reponse.nextLine().trim();
+
+        List<Map<String, String>> pieces5 = new ArrayList<>();
+        Map<String, String> p1 = new HashMap<>();
+        p1.put("name", searchname);
+        pieces5.add(p1);
+
+        System.out.println("Saisissez les caractéristique de la pièce :");
+        String searchcaracteristic = reponse.nextLine().trim();
+        p1.put("caracteristic", searchcaracteristic);
+
+        System.out.println("Saisissez le prix de la pièce :");
+        String searchprice = reponse.nextLine().trim();
+        p1.put("price", searchprice);
+
+        System.out.println("Saisissez l'id de l'avion pour ajouter la pièce :");
+        String searchplane = reponse.nextLine().trim();
+
+        boolean find = false;
+
+
+        for (Map<String, Object> plane : planes) {
+            if (plane.get("id").toString().equalsIgnoreCase(searchplane)) {
+                plane.put("pieces", pieces5);
+                find = true;
+                break;
+            }
+        }
+        if (!find) {
+            System.out.println("Aucun avion trouvé avec l' id \"" + searchplane + "\"");
+
+        }
+    }
+
+    public static void deletepiece() {
+        System.out.println("Saisissez l'id de l'avion :");
+        Scanner reponse = new Scanner(System.in);
+        String searchid = reponse.nextLine().trim();
+
+
+        for (Map<String, Object> plane : planes) {
+            if (plane.get("id").equals(searchid)) {
+                List<Map<String, String>> pieces = (List<Map<String, String>>) plane.get("pieces");
+
+                System.out.println("Saisissez le nom de la pièce à supprimer :");
+                String searchname = reponse.nextLine().trim();
+
+                boolean found = false;
+
+                for (int i = 0 ; i < pieces.size(); i ++){
+                    if (pieces.get(i).get("name").equalsIgnoreCase(searchname)){
+                        pieces.remove(i);
+                        found = true;
+                        System.out.println("Pièce \"" + searchname + "\" supprimée.");
+                        break;
+                    }
+                }
+                if (!found) {
+                    System.out.println("Aucune pièce trouvé avec le nom \"" + searchname + "\"");
+            }
+        }
+        }
+    }
 }
+
+
 
 
 
