@@ -4,60 +4,99 @@ import java.util.Scanner;
 
 public class gestionAvions {
     public static void main(String[] args) {
-        Scanner scan = new Scanner(System.in);
-        System.out.println (initavion());
-        displayavions();²
+        //System.out.println(initplanes());
+        //displayavions();
+        userChoice();
 
     }
-    public static Map<Integer, Map<String, String>> initavion() {
-        Map<Integer, Map<String, String>> avions = new HashMap<>();
 
-        Map<String, String> avion1 = new HashMap<>();
-        Map<String, String> avion2 = new HashMap<>();
-        Map<String, String> avion3 = new HashMap<>();
-        Map<String, String> avion4 = new HashMap<>();
-        Map<String, String> avion5 = new HashMap<>();
+    public static Map<Integer, Map<String, String>> initplanes() {
+        Map<Integer, Map<String, String>> planes = new HashMap<>();
+
+        Map<String, String> plane1 = new HashMap<>();
+        Map<String, String> plane2 = new HashMap<>();
+        Map<String, String> plane3 = new HashMap<>();
+        Map<String, String> plane4 = new HashMap<>();
+        Map<String, String> plane5 = new HashMap<>();
 
 
-        avion1.put("programme" , "A380");
-        avion1.put("phase actuelle" , "construction");
-        avion1.put("type" , "transport passager");
+        plane1.put("programme", "A380");
+        plane1.put("phase actuelle", "construction");
+        plane1.put("type", "transport passager");
 
-        avion2.put("programme" , "A220");
-        avion2.put("phase actuelle" , "en service");
-        avion2.put("type" , "militaire");
+        plane2.put("programme", "A220");
+        plane2.put("phase actuelle", "en service");
+        plane2.put("type", "militaire");
 
-        avion3.put("programme" , "A300");
-        avion3.put("phase actuelle" , "clôturé");
-        avion3.put("type" , "avion d'affaires");
+        plane3.put("programme", "A300");
+        plane3.put("phase actuelle", "clôturé");
+        plane3.put("type", "avion d'affaires");
 
-        avion4.put("programme" , "A350");
-        avion4.put("phase actuelle" , "en service");
-        avion4.put("type" , "transport passager");
+        plane4.put("programme", "A350");
+        plane4.put("phase actuelle", "en service");
+        plane4.put("type", "transport passager");
 
-        avion5.put("programme" , "A320");
-        avion5.put("phase actuelle" , "conception");
-        avion5.put("type" , "transport passager");
+        plane5.put("programme", "A320");
+        plane5.put("phase actuelle", "conception");
+        plane5.put("type", "transport passager");
 
-        avions.put(1, avion1);
-        avions.put(2, avion2);
-        avions.put(3, avion3);
-        avions.put(4, avion4);
-        avions.put(5, avion5);
+        planes.put(1, plane1);
+        planes.put(2, plane2);
+        planes.put(3, plane3);
+        planes.put(4, plane4);
+        planes.put(5, plane5);
 
-        return avions;
+        return planes;
     }
-    public static void displayavions(){
-        for (Map.Entry<Integer, Map<String, String>> entreeExterne : initavion().entrySet()){
+
+    public static void displayplanes() {
+        for (Map.Entry<Integer, Map<String, String>> entreeExterne : initplanes().entrySet()) {
             Integer cleExterne = entreeExterne.getKey();
             Map<String, String> sousMap = entreeExterne.getValue();
             System.out.println("Id avion : " + cleExterne);
 
-            for (Map.Entry<String, String> entreeInterne : sousMap.entrySet()){
+            for (Map.Entry<String, String> entreeInterne : sousMap.entrySet()) {
                 String cleInterne = entreeInterne.getKey();
                 String valeur = entreeInterne.getValue();
                 System.out.println(" " + cleInterne + " : " + valeur);
             }
         }
     }
+
+    public static String userChoice() {
+        String[] choice = {"1 - Afficher tous les avions",
+                "2 - Rechercher un/des avions grâce au programme",
+                "3 - Ajouter une pièce à l'avion",
+                "4 - Supprimer une pièce de l'avion",
+                "5 - Afficher toutes les pièces de l'avion"};
+
+        Scanner reponse = new Scanner(System.in);
+
+        int selection = -1;
+
+        while (selection != 0) {
+            System.out.println("Que voulez vous faire ? :");
+            for (String option : choice) {
+                System.out.println(option);
+            }
+            System.out.print("Votre choix [sélectionner le numéro correspondant] :");
+
+            if (reponse.hasNextInt()){
+                selection = reponse.nextInt();
+                reponse.nextLine();
+
+                switch (selection){
+                    case 1 -> displayplanes();
+                    case 2 -> searchplanes();
+                    case 3 -> addpiece();
+                    case 4 -> deletepiece();
+                    case 5 -> displaypiece();
+
+                }
+            }
+
+        }
+    }
 }
+
+
