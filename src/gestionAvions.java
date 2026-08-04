@@ -6,6 +6,7 @@ public class gestionAvions {
     public static void main(String[] args) {
         Scanner scan = new Scanner(System.in);
         System.out.println (initavion());
+        displayavions();²
 
     }
     public static Map<Integer, Map<String, String>> initavion() {
@@ -47,6 +48,16 @@ public class gestionAvions {
         return avions;
     }
     public static void displayavions(){
-        
+        for (Map.Entry<Integer, Map<String, String>> entreeExterne : initavion().entrySet()){
+            Integer cleExterne = entreeExterne.getKey();
+            Map<String, String> sousMap = entreeExterne.getValue();
+            System.out.println("Id avion : " + cleExterne);
+
+            for (Map.Entry<String, String> entreeInterne : sousMap.entrySet()){
+                String cleInterne = entreeInterne.getKey();
+                String valeur = entreeInterne.getValue();
+                System.out.println(" " + cleInterne + " : " + valeur);
+            }
+        }
     }
 }
