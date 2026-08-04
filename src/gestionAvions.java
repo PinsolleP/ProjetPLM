@@ -46,4 +46,7 @@ public class gestionAvions {
 
         return avions;
     }
+    public static void displayavions(){
+        
+    }
 }
