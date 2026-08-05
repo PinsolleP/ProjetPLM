@@ -6,10 +6,11 @@ public class gestionAvions {
      * Permet d'afficher les avions, de rechercher un programme,
      * d'ajouter une pièce et de supprimer une pièce.
      */
-    public static List<Map<String, Object>> planes = new ArrayList<>();
+    protected static List<Map<String, Object>> planes = new ArrayList<>();
     /**
      * Liste contenant tous les avions enregistrés.
      */
+    private static final Scanner scanner = new Scanner(System.in);
 
     public static void main(String[] args) {
         /**
@@ -20,6 +21,7 @@ public class gestionAvions {
          */
         initplanes();
         userChoice();
+        scanner.close();
     }
 
     public static void initplanes() {
@@ -174,7 +176,6 @@ public class gestionAvions {
                 "4 - Supprimer une pièce de l'avion",
                 "0 - Quitter"};
 
-        Scanner reponse = new Scanner(System.in);
 
         int selection = -1;
 
@@ -185,9 +186,9 @@ public class gestionAvions {
             }
             System.out.println("Votre choix [sélectionner le numéro correspondant] :");
 
-            if (reponse.hasNextInt()) {
-                selection = reponse.nextInt();
-                reponse.nextLine();
+            if (scanner.hasNextInt()) {
+                selection = scanner.nextInt();
+                scanner.nextLine();
 
 
                 switch (selection) {
@@ -210,7 +211,7 @@ public class gestionAvions {
                 }
             } else {
                 System.out.println("Veuillez entrer un chiffre valide.");
-                reponse.nextLine();
+                scanner.nextLine();
             }
         }
         return selection;
@@ -222,8 +223,7 @@ public class gestionAvions {
          * et affiche ses informations s'il existe.
          */
         System.out.println("Quel programme recherchez vous ?");
-        Scanner reponse = new Scanner(System.in);
-        String search = reponse.nextLine().trim();
+        String search = scanner.nextLine().trim();
 
         boolean find = false;
 
@@ -245,24 +245,23 @@ public class gestionAvions {
          * identifié par son identifiant.
          */
         System.out.println("Saisissez le nom de la pièce :");
-        Scanner reponse = new Scanner(System.in);
-        String searchname = reponse.nextLine().trim();
+        String reponse = scanner.nextLine().trim();
 
         List<Map<String, String>> pieces5 = new ArrayList<>();
         Map<String, String> p1 = new HashMap<>();
-        p1.put("name", searchname);
+        p1.put("name", reponse);
         pieces5.add(p1);
 
         System.out.println("Saisissez les caractéristique de la pièce :");
-        String searchcaracteristic = reponse.nextLine().trim();
+        String searchcaracteristic = scanner.nextLine().trim();
         p1.put("caracteristic", searchcaracteristic);
 
         System.out.println("Saisissez le prix de la pièce :");
-        String searchprice = reponse.nextLine().trim();
+        String searchprice = scanner.nextLine().trim();
         p1.put("price", searchprice);
 
         System.out.println("Saisissez l'id de l'avion pour ajouter la pièce :");
-        String searchplane = reponse.nextLine().trim();
+        String searchplane = scanner.nextLine().trim();
 
         boolean find = false;
 
@@ -286,8 +285,7 @@ public class gestionAvions {
          * du nom de la pièce saisi par l'utilisateur.
          */
         System.out.println("Saisissez l'id de l'avion :");
-        Scanner reponse = new Scanner(System.in);
-        String searchid = reponse.nextLine().trim();
+        String searchid = scanner.nextLine().trim();
 
 
         for (Map<String, Object> plane : planes) {
@@ -295,7 +293,7 @@ public class gestionAvions {
                 List<Map<String, String>> pieces = (List<Map<String, String>>) plane.get("pieces");
 
                 System.out.println("Saisissez le nom de la pièce à supprimer :");
-                String searchname = reponse.nextLine().trim();
+                String searchname = scanner.nextLine().trim();
 
                 boolean found = false;
 
