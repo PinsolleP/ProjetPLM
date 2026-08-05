@@ -1,16 +1,33 @@
-
 import java.util.*;
 
-
 public class gestionAvions {
+    /**
+     * Application de gestion d'avions.
+     * Permet d'afficher les avions, de rechercher un programme,
+     * d'ajouter une pièce et de supprimer une pièce.
+     */
     public static List<Map<String, Object>> planes = new ArrayList<>();
+    /**
+     * Liste contenant tous les avions enregistrés.
+     */
 
     public static void main(String[] args) {
+        /**
+         * Point d'entrée du programme.
+         * Initialise les données puis affiche le menu principal.
+         *
+         * @param args arguments de la ligne de commande (non utilisé ici)
+         */
         initplanes();
         userChoice();
     }
 
     public static void initplanes() {
+        /**
+         * Initialise la liste des avions avec leurs informations
+         * et leurs pièces.
+         */
+
         //Avion 1
         Map<String, Object> plane1 = new HashMap<>();
         plane1.put("id", "1");
@@ -70,6 +87,7 @@ public class gestionAvions {
         p4.put("price", "55000 €");
         pieces3.add(p4);
 
+
         Map<String, String> p5 = new HashMap<>();
         p5.put("name", "radar 1800");
         p5.put("caracteristic", "capteur nez avant");
@@ -110,6 +128,12 @@ public class gestionAvions {
     }
 
     public static void displayPlane(Map<String, Object> plane) {
+        /**
+         * Affiche les informations d'un avion ainsi que
+         * la liste de ses pièces.
+         *
+         * @param plane avion à afficher
+         */
         System.out.println("Avions " + plane.get("id"));
         System.out.println("Programme :" + plane.get("programme"));
         System.out.println("Phase :" + plane.get("phase actuelle"));
@@ -129,12 +153,21 @@ public class gestionAvions {
     }
 
     public static void displayPlanes() {
+        /**
+         * Affiche tous les avions enregistrés.
+         */
         for (Map<String, Object> avion : planes) {
             displayPlane(avion);
         }
     }
 
     public static Integer userChoice() {
+        /**
+         * Affiche le menu principal et exécute l'action
+         * choisie par l'utilisateur.
+         *
+         * @return le dernier choix saisi par l'utilisateur
+         */
         String[] choice = {"1 - Afficher tous les avions",
                 "2 - Rechercher un/des avions grâce au programme",
                 "3 - Ajouter une pièce à l'avion",
@@ -184,6 +217,10 @@ public class gestionAvions {
     }
 
     public static void searchplanes() {
+        /**
+         * Recherche un avion à partir de son programme
+         * et affiche ses informations s'il existe.
+         */
         System.out.println("Quel programme recherchez vous ?");
         Scanner reponse = new Scanner(System.in);
         String search = reponse.nextLine().trim();
@@ -203,6 +240,10 @@ public class gestionAvions {
     }
 
     public static void addpiece() {
+        /**
+         * Ajoute une nouvelle pièce à un avion
+         * identifié par son identifiant.
+         */
         System.out.println("Saisissez le nom de la pièce :");
         Scanner reponse = new Scanner(System.in);
         String searchname = reponse.nextLine().trim();
@@ -240,6 +281,10 @@ public class gestionAvions {
     }
 
     public static void deletepiece() {
+        /**
+         * Supprime une pièce d'un avion à partir
+         * du nom de la pièce saisi par l'utilisateur.
+         */
         System.out.println("Saisissez l'id de l'avion :");
         Scanner reponse = new Scanner(System.in);
         String searchid = reponse.nextLine().trim();
