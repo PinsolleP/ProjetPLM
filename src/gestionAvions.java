@@ -268,7 +268,15 @@ public class gestionAvions {
 
         for (Map<String, Object> plane : planes) {
             if (plane.get("id").toString().equalsIgnoreCase(searchplane)) {
-                plane.put("pieces", pieces5);
+                List<Map<String, String>> pieces = (List<Map<String, String>>) plane.get("pieces");
+
+                Map<String, String> piece = new HashMap<>();
+                piece.put("name", reponse);
+                piece.put("caracteristic", searchcaracteristic);
+                piece.put("price", searchprice);
+
+                pieces.add(piece);
+                
                 find = true;
                 break;
             }
